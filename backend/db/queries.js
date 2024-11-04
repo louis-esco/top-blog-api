@@ -123,3 +123,62 @@ export const getComments = async (postId) => {
     throw error;
   }
 };
+
+export const createUser = async (user) => {
+  try {
+    const createdUser = await prisma.user.create({
+      data: {
+        username: user.username,
+        password: user.password,
+        isAuthor: user.isAuthor,
+      },
+    });
+    return createdUser;
+  } catch (error) {
+    console.error("There was an error creating user in db", error);
+    throw error;
+  }
+};
+
+export const updateUser = async (user) => {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        username: user.username,
+        isAuthor: user.isAuthor,
+      },
+    });
+    return updatedUser;
+  } catch (error) {
+    console.error("There was an error updating user in db", error);
+    throw error;
+  }
+};
+
+export const deleteUser = async (id) => {
+  try {
+    const deletedUser = await prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+    return deletedUser;
+  } catch (error) {
+    console.error("There was an error deleting user in db", error);
+    throw error;
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    const users = await prisma.user.findMany();
+    users.forEach((user) => delete user.password);
+    return users;
+  } catch (error) {
+    console.error("There was an error getting users in db", error);
+    throw error;
+  }
+};
