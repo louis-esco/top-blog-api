@@ -12,7 +12,7 @@ export const createPost = async (post) => {
     });
     return createdPost;
   } catch (error) {
-    console.error("There was an error creating user in db", error);
+    console.error("There was an error creating post in db", error);
     throw error;
   }
 };
@@ -57,6 +57,69 @@ export const getPosts = async () => {
     return posts;
   } catch (error) {
     console.error("There was an error getting posts in db", error);
+    throw error;
+  }
+};
+
+export const createComment = async (comment) => {
+  try {
+    const createdComment = await prisma.comment.create({
+      data: {
+        content: comment.content,
+        postId: comment.postId,
+        authorId: comment.authorId,
+      },
+    });
+    return createdComment;
+  } catch (error) {
+    console.error("There was an error creating comment in db", error);
+    throw error;
+  }
+};
+
+export const updateComment = async (comment) => {
+  try {
+    const updatedComment = await prisma.comment.update({
+      where: {
+        id: comment.id,
+      },
+      data: {
+        content: comment.content,
+        postId: comment.postId,
+        authorId: comment.authorId,
+      },
+    });
+    return updatedComment;
+  } catch (error) {
+    console.error("There was an error updating comment in db", error);
+    throw error;
+  }
+};
+
+export const deleteComment = async (id) => {
+  try {
+    const deletedComment = await prisma.comment.delete({
+      where: {
+        id,
+      },
+    });
+    return deletedComment;
+  } catch (error) {
+    console.error("There was an error deleting comment in db", error);
+    throw error;
+  }
+};
+
+export const getComments = async (postId) => {
+  try {
+    const comments = await prisma.comment.findMany({
+      where: {
+        postId,
+      },
+    });
+    return comments;
+  } catch (error) {
+    console.error("There was an error getting comment in db", error);
     throw error;
   }
 };
