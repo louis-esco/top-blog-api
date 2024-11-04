@@ -1,5 +1,5 @@
-import posts from "./posts";
-import users from "./users";
+import posts from "./postsRoutes.js";
+import users from "./usersRoutes.js";
 
 export default {
   posts,
