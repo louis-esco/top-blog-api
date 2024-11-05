@@ -1,4 +1,5 @@
 import prisma from "../prisma/client.js";
+import bcrypt from "bcryptjs";
 
 export const createPost = async (post) => {
   try {
@@ -126,10 +127,11 @@ export const getComments = async (postId) => {
 
 export const createUser = async (user) => {
   try {
+    const hash = await bcrypt.hash(user.password, 10);
     const createdUser = await prisma.user.create({
       data: {
         username: user.username,
-        password: user.password,
+        password: hash,
         isAuthor: user.isAuthor,
       },
     });
@@ -179,6 +181,20 @@ export const getUsers = async () => {
     return users;
   } catch (error) {
     console.error("There was an error getting users in db", error);
+    throw error;
+  }
+};
+
+export const getUserByUsername = async (username) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error("There was an error getting user by username in db", error);
     throw error;
   }
 };
