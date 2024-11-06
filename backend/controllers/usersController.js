@@ -44,9 +44,14 @@ export const deleteUser = async (req, res, next) => {
 export const getUsers = async (req, res, next) => {
   try {
     const users = await db.getUsers();
+    console.log(req.user);
     res.json(users);
   } catch (error) {
     console.error("There was an error getting users", error);
     next(error);
   }
+};
+
+export const test = (req, res, next) => {
+  next();
 };

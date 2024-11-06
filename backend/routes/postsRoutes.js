@@ -1,8 +1,11 @@
 import { Router } from "express";
 import * as postsController from "../controllers/postsController.js";
 import * as commentsController from "../controllers/commentsController.js";
+import * as authController from "../controllers/authController.js";
 
 const router = Router();
+
+router.use(authController.verifyJwt);
 
 router.get("/", postsController.getPosts);
 router.post("/", postsController.postCreatePost);

@@ -3,6 +3,7 @@ import cors from "cors";
 import passport from "passport";
 import "dotenv/config";
 import routes from "./routes/index.js";
+import "./utils/passport.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
