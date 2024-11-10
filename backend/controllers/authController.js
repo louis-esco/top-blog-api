@@ -2,9 +2,18 @@ import passport from "passport";
 
 export const userLogin = async (req, res, next) => {
   try {
-    passport.authenticate("local", {
-      session: false,
-    })(req, res, next);
+    passport.authenticate(
+      "local",
+      {
+        session: false,
+      },
+      (err, user, info) => {
+        if (user) {
+          res.json(user);
+        }
+        return res.status(401).json(info.msg);
+      }
+    )(req, res, next);
   } catch (error) {
     console.error("There was an error logging user", error);
     next(error);

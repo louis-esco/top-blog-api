@@ -4,9 +4,7 @@ import * as authController from "../controllers/authController.js";
 
 const router = Router();
 
-router.post("/auth", authController.userLogin, (req, res) => {
-  res.json(req.user);
-});
+router.post("/auth", authController.userLogin);
 
 router.use(authController.verifyJwt);
 
