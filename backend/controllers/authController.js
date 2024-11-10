@@ -9,9 +9,9 @@ export const userLogin = async (req, res, next) => {
       },
       (err, user, info) => {
         if (user) {
-          res.json(user);
+          return res.json(user);
         }
-        return res.status(401).json(info.msg);
+        return res.status(401).json(info.message);
       }
     )(req, res, next);
   } catch (error) {
