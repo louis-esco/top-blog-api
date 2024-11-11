@@ -54,7 +54,12 @@ export const deletePost = async (id) => {
 
 export const getPosts = async () => {
   try {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      include: {
+        author: true,
+        comments: true,
+      },
+    });
     return posts;
   } catch (error) {
     console.error("There was an error getting posts in db", error);
