@@ -7,6 +7,7 @@ import { useAuth } from "../provider/authProvider";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 import Login from "../pages/Login";
 import Logout from "../pages/Logout";
+import Posts from "../pages/Posts";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -18,7 +19,7 @@ const Routes = () => {
       children: [
         {
           path: "/",
-          element: <div>Logged User Home Page</div>,
+          element: <Posts />,
         },
         {
           path: "/login",
