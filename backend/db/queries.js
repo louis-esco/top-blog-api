@@ -56,10 +56,22 @@ export const getPosts = async () => {
   try {
     const posts = await prisma.post.findMany({
       include: {
-        author: true,
+        author: {
+          select: {
+            id: true,
+            isAuthor: true,
+            username: true,
+          },
+        },
         comments: {
           include: {
-            author: true,
+            author: {
+              select: {
+                id: true,
+                isAuthor: true,
+                username: true,
+              },
+            },
           },
         },
       },
