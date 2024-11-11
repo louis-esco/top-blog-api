@@ -1,6 +1,6 @@
 import { useAuth } from "../provider/authProvider";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { postLogin } from "../utils/apiQueries";
 import { useState } from "react";
 
 const Login = () => {
@@ -18,9 +18,7 @@ const Login = () => {
       const formData = new FormData(e.target);
       const formObject = Object.fromEntries(formData.entries());
 
-      const response = await axios.post("http://localhost:3000/users/auth", {
-        ...formObject,
-      });
+      const response = await postLogin(formObject);
 
       const token = response.data;
       setToken(token);
