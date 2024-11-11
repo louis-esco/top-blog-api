@@ -57,7 +57,11 @@ export const getPosts = async () => {
     const posts = await prisma.post.findMany({
       include: {
         author: true,
-        comments: true,
+        comments: {
+          include: {
+            author: true,
+          },
+        },
       },
     });
     return posts;
