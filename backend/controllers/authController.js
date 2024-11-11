@@ -11,7 +11,7 @@ export const userLogin = async (req, res, next) => {
         if (user) {
           return res.json(user);
         }
-        return res.status(401).json(info.message);
+        return res.status(401).json(info?.message);
       }
     )(req, res, next);
   } catch (error) {
